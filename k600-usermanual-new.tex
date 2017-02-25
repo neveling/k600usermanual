@@ -3426,10 +3426,21 @@ and the obtain ones from the rough calibration.}
 %---------------------------------
 \subsection{Calibration using Magnetic Rigidity}
 
+\bigskip
+\shabox{\noindent 
 What is discussed here is already done inside the analyser, provided you give the 
 correct values in the config file. 
-What is shown here is how to do it with only knowledge of X1pos in the TTree,
-i.e. without the analyser.
+What is shown here is how to do the calibration step by step
+outside the analyzer,with only knowledge of X1pos in the TTree.
+}
+\bigskip
+
+Rigidity can be calculated as:
+\begin{verbatim}
+rigidity = momentum(in MeV/c) * charge (dimensionless) * 10 /2.998
+\end{verbatim}
+The units of this calculation is, as in the case of the kinematics code
+{\it relkin}, kG/cm. To convert to Tm (Tesla meter) divide by 1000.
 
 
 Once the peaks have been identify, it is possible to calculate the 
@@ -3469,6 +3480,9 @@ $^{26}Al$ Ex (MeV)&Rigidity (Tmm)\\
 \end{tabular}
 \caption{\it Identified peaks (left) and their corresponding rigidity (right) \cite{nndc}.}
 \label{tab:rigidity}
+
+
+
 \end{table}
 
 
@@ -3600,18 +3614,16 @@ Quick summary:
 \item from rigidity you get momentum, assuming you know what particle type is;
 \item from momentum you get kinetic energy of particle in K600;
 \item now you can calculate energy of recoil, from knowledge or the different masses and
-kinetic energies of the be and the particle in the K600;
-\item now you have everything to can calculate Ex.
+kinetic energies of the beam and the particle detected in the K600.
+Therefore, you have everything to can calculate Ex.
 \end{enumerate}
-{\color{red} IMPORTANT: WHAT FOLLOWS HERE IS VALID ONLY IF YOU USE THE SAME UNITS
-FOR RIGIDITY, THE SAME CALCULATOR FOR RIGIDITY, YOU ARE USING 3HE,T REACTION, ETC, the same.  If you e.g. use {\it relkin}
+{\color{red} IMPORTANT: WHAT FOLLOWS BELOW IS VALID ONLY IF YOU USE THE SAME UNITS
+FOR RIGIDITY, YOU ARE USING 3HE,T REACTION, ETC.} 
+If you e.g. use {\it relkin}
 the the rigidity is given in kG/cm. To go from that to momentum you need
 \begin{verbatim}
 rigidity = momentum(in MeV/c) * charge (dimensionless) * 10 /2.998
 \end{verbatim}
-}
-
-
 
 
 
@@ -3632,8 +3644,8 @@ $T_{recoil}$ is the kinetic energy for the recoil nucleus,  and $Q_{v}$ the Q-va
 {\color{red} What follows should be good in principle, but the details of the definitions may need to some work.}
 In the terminal it is typed:
 \begin{verbatim}
-DATA->SetAlias("masstriton","2809.43210768")
-DATA->SetAlias("massrecoil","7809.43210768")
+DATA->SetAlias("masstriton","2809.431833")
+DATA->SetAlias("massrecoil","24206.63393")
 DATA->SetAlias("Erecoil","sqrt(pow(Pbeam,2.) + pow(Ptriton,2.) 
 	- 2*Ptriton*Pbeam*cos(theta) *pow(massrecoil,2)")
 DATA->SetAlias("Etritons","sqrt(pow(Ptritons,2.)+pow(2809.43210768,2.))-2809.43210768")
